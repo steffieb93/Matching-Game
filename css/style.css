@@ -26,7 +26,7 @@ h1 {
     margin: 0 0 10px 0;
 }
 
-/* Style that affects MAIN DIV tag */
+/* Style that affects MAIN DIV Tag */
 .container {
     display: flex;
     justify-content: center;
@@ -34,7 +34,7 @@ h1 {
     flex-direction: column;
 }
 
-/* Style that affects SCORE PANEL section */
+/* Style that affects SCORE PANEL Section */
 .score-panel {
     text-align: left;
     width: 345px;
@@ -55,4 +55,49 @@ h1 {
 .restart {
     float: right;
     cursor: pointer;
+}
+
+/* Style that affects DECK Section */
+.deck {
+    width: 660px;
+    min-height: 680px;
+    background: linear-gradient(to top right, #0281cc 0%, #e91e63d1 100%);
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+}
+
+.card {
+    height: 125px;
+    width: 125px;
+    background: #2e3d49;
+    font-size: 0;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5)
+}
+
+.open {
+    transform: rotateY(0);
+    background: #9c27b0;
+    cursor: default;
+}
+
+.show {
+    font-size: 33px;
+}
+
+.match {
+    cursor: default;
+    background: #02ccba;
+    font-size: 33px;
 }
