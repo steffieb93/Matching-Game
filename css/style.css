@@ -1,0 +1,58 @@
+/* Style that affects ALL Tags */
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: white url('../img/paper.png'); /* Background pattern from PsdDots */
+    font-family: 'Coda', cursive;
+}
+
+h1 {
+    font-family: 'Courier', sans-sans-serif;
+    font-weight: bold;
+    font-size: 100px;
+    margin: 0 0 10px 0;
+}
+
+/* Style that affects MAIN DIV tag */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Style that affects SCORE PANEL section */
+.score-panel {
+    text-align: left;
+    width: 345px;
+    margin: 10px 0;
+}
+
+.stars {
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.stars li {
+    list-style: none;
+    display: inline-block;
+}
+
+.restart {
+    float: right;
+    cursor: pointer;
+}
