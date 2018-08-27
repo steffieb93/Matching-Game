@@ -34,7 +34,6 @@ function shuffle(array) {
 
 // Function to show card when clicked
 function showCard() {
-    console.log(this.className);
     if (this.className != "class open") {
         this.classList.toggle("open");
         this.classList.toggle("disable-click");
@@ -64,6 +63,13 @@ function match() {
     matchCard[1].classList.add("match");
     matchCard[1].classList.remove("open");
 
+    starsCount++;
+
+    if (starsCount == 2) {
+        changeStar();
+        starsCount = 0;
+    }
+
     matchCard = [];
 
 }
@@ -71,7 +77,6 @@ function match() {
 // Function when cards don't match
 function dontMatch() {
     matchCard[0].classList.add("dont-match");
-    setTimeout(closeCard,1000);
     matchCard[1].classList.add("dont-match");
     setTimeout(closeCard,1000);
 
@@ -88,6 +93,12 @@ var closeCard = function () {
 
     matchCard = [];
 }
+
+// Function to change stars Background
+function changeStar() {
+    stars[starIndex].style.visibility = "collapse";
+    starIndex++;
+}
 /******************************************************************************/
 /*
 *   ALL OUTSIDE VARIABLES
@@ -97,25 +108,21 @@ var cardsShuffled = [];
 const deck = document.querySelector(".deck");
 var matchCard = [];
 let moves = 0;
+let starsCount = 0;
+let starIndex = 0;
+const stars = document.querySelectorAll(".stars li");
 /******************************************************************************/
 /*
 *   Making list that holds all the cards and shuffles them to deck
 */
 //Searches for all of i tags that have fa class inside the li tag
 cards = document.getElementsByClassName("card");
-console.log(cards);
-console.log(cards[0].outerHTML);
 for (let i = 0; i < cards.length; i++) {
     cardsShuffled.push(cards[i]);
 }
 
-console.log(cardsShuffled);
-console.log(cardsShuffled[0].outerHTML);
-
 // Shuffles cards
 shuffle(cardsShuffled);
-console.log(cardsShuffled);
-console.log(cardsShuffled[0].outerHTML);
 
 // Adds shuffled cards to deck (got loop from overstack)
 for (let i = 0; i < cardsShuffled.length; i++) {
@@ -131,3 +138,4 @@ for (let i = 0; i < cardsShuffled.length; i++) {
     cardsShuffled[i].addEventListener("click", showCard);
     cardsShuffled[i].addEventListener("click", checkCard);
 }
+/******************************************************************************/
