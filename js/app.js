@@ -28,14 +28,12 @@ function gameBoard() {
     // Shuffles cards
     shuffle(cardsShuffled);
 
-    // Adds shuffled cards to deck (got loop from overstack)
+    // Adds shuffled cards to deck
     for (let i = 0; i < cardsShuffled.length; i++) {
         [].forEach.call(cardsShuffled, function(item) {
             deck.appendChild(item);
         });
     }
-
-
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -89,15 +87,18 @@ function match() {
     matchCard[1].classList.add("match");
     matchCard[1].classList.remove("open");
 
-    starsCount++;
+    matches++;
+    if (matches == 8) {
+        congratulation();
+    }
 
+    starsCount++;
     if (starsCount == 2) {
         changeStar();
         starsCount = 0;
     }
 
     matchCard = [];
-
 }
 
 // Function when cards don't match
@@ -105,7 +106,6 @@ function dontMatch() {
     matchCard[0].classList.add("dont-match");
     matchCard[1].classList.add("dont-match");
     setTimeout(closeCard,600);
-
 }
 
 // Function to close card after an unmatch
@@ -151,7 +151,32 @@ function stopTimer() {
     clearInterval(clearTime);
 }
 
+// Function when restart icon is clicked
+function restartGame() {
+    moves = 0;
+    matches = 0;
+    document.querySelector(".moves").innerHTML = moves;
 
+    for (let i = 0; i < cardsShuffled.length; i++) {
+        cardsShuffled[i].classList.remove("open");
+        cardsShuffled[i].classList.remove("match");
+        cardsShuffled[i].classList.remove("dont-match");
+        cardsShuffled[i].classList.remove("disable-click");
+    }
+
+    starIndex = 0;
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].style.visibility = "visible";
+    }
+}
+
+// Function when game is over
+function congratulation() {
+    clearInterval(clearTime);
+    startover.style.visibility = "visible";
+
+    document.querySelector(".gameOver").innerHTML = "Congratulations! You have won the game in " + moves + " moves and with a time of " + minutes + " minutes and " + seconds + " seconds!";
+}
 /******************************************************************************/
 /*
 *   ALL OUTSIDE VARIABLES
@@ -162,6 +187,7 @@ const deck = document.querySelector(".deck");
 var matchCard = [];
 let moves = 0;
 let click = 0;
+let matches = 0;
 let starsCount = 0;
 let starIndex = 0;
 const stars = document.querySelectorAll(".stars li");
@@ -170,6 +196,8 @@ let seconds = 0;
 let minutes = 0;
 var startTime = true;
 var clearTime;
+const replay = document.querySelector(".replay");
+const startover = document.querySelector(".congratulation");
 /******************************************************************************/
 /*
 *   Making list that holds all the cards and shuffles them to deck
@@ -184,22 +212,21 @@ for (let i = 0; i < cardsShuffled.length; i++) {
     cardsShuffled[i].addEventListener("click", checkCard);
 }
 /******************************************************************************/
+/*
+*   Event Listeners for restarting the game
+*/
+// When refresh icon is clicked
 restart.addEventListener("click", function () {
-    moves = 0;
-    document.querySelector(".moves").innerHTML = moves;
+    restartGame();
+    gameBoard();
+    stopTimer();
+});
 
-    for (let i = 0; i < cardsShuffled.length; i++) {
-        cardsShuffled[i].classList.remove("open");
-        cardsShuffled[i].classList.remove("match");
-        cardsShuffled[i].classList.remove("dont-match");
-        cardsShuffled[i].classList.remove("disable-click");
-    }
+// When play again button is clicked
+replay.addEventListener("click", function () {
+    startover.style.visibility = "collapse";
 
-    starIndex = 0;
-    for (let i = 0; i < stars.length; i++) {
-        stars[i].style.visibility = "visible";
-    }
-
+    restartGame();
     gameBoard();
     stopTimer();
 });

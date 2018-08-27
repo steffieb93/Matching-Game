@@ -100,10 +100,6 @@ h1 {
     font-size: 33px;
 }
 
-/* .show {
-    font-size: 33px;
-} */
-
 .match {
     cursor: default;
     background: green;
@@ -118,4 +114,32 @@ h1 {
 
 .disable-click {
     pointer-events: none;
+}
+
+/* Style for Congratulation popup */
+.congratulation {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    margin: auto;
+    background-color: white;
+    border: 2px solid purple;
+    border-radius: 5px;
+    text-align: center;
+    visibility: collapse;
+}
+
+.congratulation button {
+    width: 120px;
+    height: 30px;
+    font-weight: bold;
+    background: purple;
+    color: white;
+}
+
+.gameOver-container {
+    text-align: center;
+    font-size: 24px;
+    width: 400px;
+    margin: 100px auto;
 }
