@@ -37,7 +37,7 @@ h1 {
 /* Style that affects SCORE PANEL Section */
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 400px;
     margin: 10px 0;
 }
 
@@ -50,6 +50,11 @@ h1 {
 .stars li {
     list-style: none;
     display: inline-block;
+}
+
+.timer {
+    display: inline-block;
+    margin-left: 15px;
 }
 
 .restart {
@@ -101,7 +106,7 @@ h1 {
 
 .match {
     cursor: default;
-    background: #02ccba;
+    background: green;
     font-size: 33px;
 }
 

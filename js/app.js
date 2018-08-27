@@ -65,6 +65,11 @@ function showCard() {
 function checkCard() {
     matchCard.push(this);
 
+    click++;
+    if (click == 1) {
+        timer();
+    }
+
     if(matchCard.length === 2) {
         moves++;
         document.querySelector(".moves").innerHTML = moves;
@@ -120,6 +125,33 @@ function changeStar() {
     stars[starIndex].style.visibility = "collapse";
     starIndex++;
 }
+
+// Function to Start timer
+function timer() {
+    clearTime = setInterval(function () {
+        seconds++;
+        document.querySelector(".timer").innerHTML = "Time: " + minutes + " Minutes " + seconds + " Seconds";
+
+        if (seconds == 60) {
+            minutes++;
+            seconds = 0;
+
+            document.querySelector(".timer").innerHTML = "Time: " + minutes + " Minutes " + seconds + " Seconds";
+        }
+    },1000)
+}
+
+// Function to Stop Timer
+function stopTimer() {
+    seconds = 0;
+    minutes = 0;
+    click = 0;
+
+    document.querySelector(".timer").innerHTML = "Time: " + minutes + " Minutes " + seconds + " Seconds";
+    clearInterval(clearTime);
+}
+
+
 /******************************************************************************/
 /*
 *   ALL OUTSIDE VARIABLES
@@ -129,10 +161,15 @@ var cardsShuffled = [];
 const deck = document.querySelector(".deck");
 var matchCard = [];
 let moves = 0;
+let click = 0;
 let starsCount = 0;
 let starIndex = 0;
 const stars = document.querySelectorAll(".stars li");
 const restart = document.querySelector(".restart");
+let seconds = 0;
+let minutes = 0;
+var startTime = true;
+var clearTime;
 /******************************************************************************/
 /*
 *   Making list that holds all the cards and shuffles them to deck
@@ -164,4 +201,5 @@ restart.addEventListener("click", function () {
     }
 
     gameBoard();
+    stopTimer();
 });
