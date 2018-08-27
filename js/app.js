@@ -33,8 +33,46 @@ function shuffle(array) {
 // Shows card when clicked
 function showCard() {
     this.classList.toggle("open");
-    this.classList.toggle("show");
-    this.classList.toggle("disabled");
+    this.classList.add("disable-click");
+    checkCard();
+}
+
+// Check if cards match
+function checkCard() {
+    matchCard.push(this);
+
+    if(matchCard.length === 2) {
+        moves++;
+        document.querySelector(".moves").innerHTML = moves;
+
+        if(matchCard[0].type === matchCard[1].type) {
+            match();
+        }else {
+            unmatch();
+        }
+    }
+}
+
+// Match function
+function match() {
+    matchCard[0].classList.add("match");
+    matchCard[0].classList.remove("open");
+    matchCard[1].classList.add("match");
+    matchCard[1].classList.remove("open");
+
+    matchCard = [];
+
+}
+
+// Unmatch function
+function unmatch() {
+    matchCard[0].remove("open");
+    matchCard[0].remove("disable-click");
+    matchCard[1].remove("open");
+    matchCard[1].remove("disable-click");
+
+    matchCard = [];
+
 }
 
 
@@ -54,7 +92,14 @@ for (let i = 0; i < randomCards.length; i++) {
     });
 }
 
+// List that will hold open cards
+var matchCard = [];
+
 // Adds event listener to each card
 for (let i = 0; i < randomCards.length; i++) {
     randomCards[i].addEventListener("click", showCard);
+    randomCards[i].addEventListener("click", checkCard);
 }
+
+// Variable for move counter
+let moves = 0;

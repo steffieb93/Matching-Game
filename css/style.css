@@ -83,21 +83,32 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5)
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    transition: 0.5s;
 }
 
+/* Styles that affect when card is clicked */
 .open {
-    transform: rotateY(0);
+    transform: rotateY(180deg);
     background: #9c27b0;
     cursor: default;
-}
-
-.show {
     font-size: 33px;
 }
+
+/* .show {
+    font-size: 33px;
+} */
 
 .match {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+}
+
+.disable-click {
+    pointer-events: none;
+}
+
+.enable-click {
+    pointer-events: auto;
 }
