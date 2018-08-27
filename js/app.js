@@ -17,7 +17,7 @@
 /*
 *   ALL FUNCTIONS
 */
-// Creation of game
+// Creation of game board
 function gameBoard() {
     //Searches for all of i tags that have fa class inside the li tag
     cards = document.getElementsByClassName("card");
@@ -120,7 +120,7 @@ var closeCard = function () {
     matchCard = [];
 }
 
-// Function to change stars Background
+// Function to remove a star
 function changeStar() {
     stars[starIndex].style.visibility = "collapse";
     starIndex++;
@@ -151,7 +151,7 @@ function stopTimer() {
     clearInterval(clearTime);
 }
 
-// Function when restart icon is clicked
+// Function when restarting the game
 function restartGame() {
     moves = 0;
     matches = 0;
@@ -194,7 +194,6 @@ const stars = document.querySelectorAll(".stars li");
 const restart = document.querySelector(".restart");
 let seconds = 0;
 let minutes = 0;
-var startTime = true;
 var clearTime;
 const replay = document.querySelector(".replay");
 const startover = document.querySelector(".congratulation");
