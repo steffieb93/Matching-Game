@@ -17,6 +17,27 @@
 /*
 *   ALL FUNCTIONS
 */
+// Creation of game
+function gameBoard() {
+    //Searches for all of i tags that have fa class inside the li tag
+    cards = document.getElementsByClassName("card");
+    for (let i = 0; i < cards.length; i++) {
+        cardsShuffled.push(cards[i]);
+    }
+
+    // Shuffles cards
+    shuffle(cardsShuffled);
+
+    // Adds shuffled cards to deck (got loop from overstack)
+    for (let i = 0; i < cardsShuffled.length; i++) {
+        [].forEach.call(cardsShuffled, function(item) {
+            deck.appendChild(item);
+        });
+    }
+
+
+}
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -78,7 +99,7 @@ function match() {
 function dontMatch() {
     matchCard[0].classList.add("dont-match");
     matchCard[1].classList.add("dont-match");
-    setTimeout(closeCard,1000);
+    setTimeout(closeCard,600);
 
 }
 
@@ -111,25 +132,12 @@ let moves = 0;
 let starsCount = 0;
 let starIndex = 0;
 const stars = document.querySelectorAll(".stars li");
+const restart = document.querySelector(".restart");
 /******************************************************************************/
 /*
 *   Making list that holds all the cards and shuffles them to deck
 */
-//Searches for all of i tags that have fa class inside the li tag
-cards = document.getElementsByClassName("card");
-for (let i = 0; i < cards.length; i++) {
-    cardsShuffled.push(cards[i]);
-}
-
-// Shuffles cards
-shuffle(cardsShuffled);
-
-// Adds shuffled cards to deck (got loop from overstack)
-for (let i = 0; i < cardsShuffled.length; i++) {
-    [].forEach.call(cardsShuffled, function(item) {
-        deck.appendChild(item);
-    });
-}
+gameBoard();
 /******************************************************************************/
 /*
 *   Making Event Listener to show what to do when a card is clicked
@@ -139,3 +147,21 @@ for (let i = 0; i < cardsShuffled.length; i++) {
     cardsShuffled[i].addEventListener("click", checkCard);
 }
 /******************************************************************************/
+restart.addEventListener("click", function () {
+    moves = 0;
+    document.querySelector(".moves").innerHTML = moves;
+
+    for (let i = 0; i < cardsShuffled.length; i++) {
+        cardsShuffled[i].classList.remove("open");
+        cardsShuffled[i].classList.remove("match");
+        cardsShuffled[i].classList.remove("dont-match");
+        cardsShuffled[i].classList.remove("disable-click");
+    }
+
+    starIndex = 0;
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].style.visibility = "visible";
+    }
+
+    gameBoard();
+});
