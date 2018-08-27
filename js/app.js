@@ -13,8 +13,10 @@
 *           + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 *           + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 */
-
-
+/******************************************************************************/
+/*
+*   ALL FUNCTIONS
+*/
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -30,30 +32,37 @@ function shuffle(array) {
     return array;
 }
 
-// Shows card when clicked
+// Function to show card when clicked
 function showCard() {
     this.classList.toggle("open");
-    this.classList.add("disable-click");
-    checkCard();
+    // this.classList.add("disable-click");
 }
 
-// Check if cards match
+// Function to check what the card is
 function checkCard() {
-    matchCard.push(this);
+    matchCard.push(this.firstChild);
+    // console.log(matchCard);
 
     if(matchCard.length === 2) {
         moves++;
         document.querySelector(".moves").innerHTML = moves;
 
-        if(matchCard[0].type === matchCard[1].type) {
+        // console.log(matchCard[0].className);
+        // console.log(matchCard[1].className);
+
+        if(matchCard[0].className == matchCard[1].className) {
             match();
+            // console.log("match");
+            // matchCard = [];
         }else {
-            unmatch();
+            dontMatch();
+            // console.log("unmatch");
+            // matchCard = [];
         }
     }
 }
 
-// Match function
+// Function when cards match
 function match() {
     matchCard[0].classList.add("match");
     matchCard[0].classList.remove("open");
@@ -64,42 +73,51 @@ function match() {
 
 }
 
-// Unmatch function
-function unmatch() {
+// Function when cards don't match
+function dontMatch() {
     matchCard[0].remove("open");
-    matchCard[0].remove("disable-click");
+    // matchCard[0].remove("disable-click");
     matchCard[1].remove("open");
-    matchCard[1].remove("disable-click");
+    // matchCard[1].remove("disable-click");
 
     matchCard = [];
 
 }
+/******************************************************************************/
+/*
+*   ALL "GLOBAL" VARIABLES
+*/
+let cards;
+var cardsShuffled = [];
+const deck = document.querySelector(".deck");
+var matchCard = [];
+let moves = 0;
+/******************************************************************************/
+/*
+*   Making list that holds all the cards and shuffles them to deck
+*/
+//Searches for all of i tags that have fa class inside the li tag
+cards = document.querySelectorAll(".card");
+for (let i = 0; i < cards.length; i++) {
+    cardsShuffled.push(cards[i]);
+}
 
-
-// List that holds all of the cards and calls shuffle function to shuffle cards
-let cards = document.getElementsByClassName("card");
-var randomCards = [...cards];
-
-// let cardsShuffled = shuffle(randomCards);
-shuffle(randomCards);
+// Shuffles cards
+shuffle(cardsShuffled);
 
 // Adds shuffled cards to deck
-const deck = document.querySelector(".deck");
-
-for (let i = 0; i < randomCards.length; i++) {
-    [].forEach.call(randomCards, function(item) {
+for (let i = 0; i < cardsShuffled.length; i++) {
+    [].forEach.call(cardsShuffled, function(item) {
+        console.log(item);
         deck.appendChild(item);
     });
 }
-
-// List that will hold open cards
-var matchCard = [];
-
-// Adds event listener to each card
-for (let i = 0; i < randomCards.length; i++) {
-    randomCards[i].addEventListener("click", showCard);
-    randomCards[i].addEventListener("click", checkCard);
+// console.log(deck);
+/******************************************************************************/
+/*
+*   Making Event Listener to show what to do when a card is clicked
+*/
+for (let i = 0; i < cardsShuffled.length; i++) {
+    cardsShuffled[i].addEventListener("click", showCard);
+    cardsShuffled[i].addEventListener("click", checkCard);
 }
-
-// Variable for move counter
-let moves = 0;
