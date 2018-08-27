@@ -34,30 +34,25 @@ function shuffle(array) {
 
 // Function to show card when clicked
 function showCard() {
-    this.classList.toggle("open");
-    // this.classList.add("disable-click");
+    console.log(this.className);
+    if (this.className != "class open") {
+        this.classList.toggle("open");
+        this.classList.toggle("disable-click");
+    }
 }
 
 // Function to check what the card is
 function checkCard() {
-    matchCard.push(this.firstChild);
-    // console.log(matchCard);
+    matchCard.push(this);
 
     if(matchCard.length === 2) {
         moves++;
         document.querySelector(".moves").innerHTML = moves;
 
-        // console.log(matchCard[0].className);
-        // console.log(matchCard[1].className);
-
-        if(matchCard[0].className == matchCard[1].className) {
+        if(matchCard[0].firstChild.className == matchCard[1].firstChild.className) {
             match();
-            // console.log("match");
-            // matchCard = [];
         }else {
             dontMatch();
-            // console.log("unmatch");
-            // matchCard = [];
         }
     }
 }
@@ -75,17 +70,27 @@ function match() {
 
 // Function when cards don't match
 function dontMatch() {
-    matchCard[0].remove("open");
-    // matchCard[0].remove("disable-click");
-    matchCard[1].remove("open");
-    // matchCard[1].remove("disable-click");
+    matchCard[0].classList.add("dont-match");
+    setTimeout(closeCard,1000);
+    matchCard[1].classList.add("dont-match");
+    setTimeout(closeCard,1000);
+
+}
+
+// Function to close card after an unmatch
+var closeCard = function () {
+    matchCard[0].classList.remove("dont-match");
+    matchCard[0].classList.remove("open");
+    matchCard[0].classList.remove("disable-click");
+    matchCard[1].classList.remove("dont-match");
+    matchCard[1].classList.remove("open");
+    matchCard[1].classList.remove("disable-click");
 
     matchCard = [];
-
 }
 /******************************************************************************/
 /*
-*   ALL "GLOBAL" VARIABLES
+*   ALL OUTSIDE VARIABLES
 */
 let cards;
 var cardsShuffled = [];
@@ -97,22 +102,27 @@ let moves = 0;
 *   Making list that holds all the cards and shuffles them to deck
 */
 //Searches for all of i tags that have fa class inside the li tag
-cards = document.querySelectorAll(".card");
+cards = document.getElementsByClassName("card");
+console.log(cards);
+console.log(cards[0].outerHTML);
 for (let i = 0; i < cards.length; i++) {
     cardsShuffled.push(cards[i]);
 }
 
+console.log(cardsShuffled);
+console.log(cardsShuffled[0].outerHTML);
+
 // Shuffles cards
 shuffle(cardsShuffled);
+console.log(cardsShuffled);
+console.log(cardsShuffled[0].outerHTML);
 
-// Adds shuffled cards to deck
+// Adds shuffled cards to deck (got loop from overstack)
 for (let i = 0; i < cardsShuffled.length; i++) {
     [].forEach.call(cardsShuffled, function(item) {
-        console.log(item);
         deck.appendChild(item);
     });
 }
-// console.log(deck);
 /******************************************************************************/
 /*
 *   Making Event Listener to show what to do when a card is clicked
